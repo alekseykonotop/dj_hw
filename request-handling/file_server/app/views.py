@@ -12,37 +12,25 @@ class FileList(TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, date=None):
-        files_list = os.listdir(FILES_PATH) # Получили все файлы в папке
+        files_list = os.listdir(FILES_PATH)
         if not files_list:
             return
 
         file_objects_list = []
-        
-        if not date:
-            for f in files_list:
-                infostat = os.stat(f'{FILES_PATH}/{f}')
+        for f in files_list:
+            infostat = os.stat(f'{FILES_PATH}/{f}')
+            if not date:
                 file_objects_list += [self.create_file_object(f, infostat)]
-            file_objects_list.reverse()
-            
-            return {
-                'files': file_objects_list
-            }
-
-        if date:
-            year, month, day = map(int, self.url_converter(date))
-            search_date = datetime.date(year, month, day)
-
-            for f in files_list:
-                infostat = os.stat(f'{FILES_PATH}/{f}')
+            else:
+                year, month, day = map(int, self.url_converter(date))
+                search_date = datetime.date(year, month, day)
                 file_creation_time = datetime.datetime.utcfromtimestamp(infostat[-1])
-                if file_creation_time.date() == search_date:
-                    file_objects_list += [self.create_file_object(f, infostat)]
-            file_objects_list.reverse()
-
-            return {
-                'files': file_objects_list,
-                'date': datetime.date(year, month, day)
-            }
+                file_objects_list += [self.create_file_object(f, infostat)] if file_creation_time.date() == search_date else []
+        file_objects_list.reverse()
+        return {
+            'files': file_objects_list,
+            'date': datetime.date(year, month, day) if date else ''
+        }
 
     def create_file_object(self, file_name, f_stat):
         return {
