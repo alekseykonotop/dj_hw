@@ -1,4 +1,5 @@
-<!DOCTYPE html>{% load static %}
+{% load static %}
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
@@ -16,9 +17,32 @@
     {% block content %}
       <div class="row">
         <h1 class="col s12">Инфляция в России</h1>
-        <ul class="col s12 m8">
+        <ul class="col s12 m8" style="text-align: justify; line-height: 0; font-size: 0px">
         
         <!-- Ваша логика -->
+          {% if titles %}
+            {% for title in titles %}
+                <li style="display: inline-block; margin:auto; padding-left: 2px; font-size: 14px; font-weight: bold; width: 7.14%; height: 38px; box-sizing: border-box; line-height: 38px; margin-bottom: 0px; border-radius: 2px;  background-color: {{ title.color }}">{{ title.value }}</li>
+            {% endfor %}
+          {% endif %}
+
+          {% if years_data %}
+            {% for year_data in years_data %}
+              <li class="helper"  style="width: 100%; height: 2px; font-size: 0px; border-top: 2px solid #C0C0C0"></li>
+              {% for inflation in year_data %}
+                <li style="display: inline-block; margin:auto; padding-left: 2px; font-size: 14px; font-weight: normal; width: 7.14%; height: 38px; box-sizing: border-box; line-height: 38px; margin-bottom: 0px; border-radius: 2px;  background-color: {{ inflation.color }}">{{ inflation.value }}</li>
+
+              {% endfor %}
+            {% endfor %}
+          {% endif %}
+
+
+
+
+
+
+
+
 
         </ul>
       </div>
