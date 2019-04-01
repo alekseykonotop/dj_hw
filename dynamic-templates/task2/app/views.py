@@ -3,19 +3,51 @@ from django.views.generic import TemplateView
 
 
 class HomeView(TemplateView):
-    template_name = 'app/home.html'
+    template_name = 'app/base.html'
+
+    def get(self, request, *args, **kwargs):
+
+        context = {
+            'path_to_page': 'app/includes/include_home.html',
+            'active_page': 'home',
+            'items': ''
+        }
+
+        return render(request, self.template_name, context)
 
 
 class AboutView(TemplateView):
-    template_name = 'app/about.html'
+    template_name = 'app/base.html'
+
+    def get(self, request, *args, **kwargs):
+
+        context = {
+            'path_to_page': 'app/includes/include_about.html',
+            'active_page': 'about',
+            'items': ''
+        }
+
+        return render(request, self.template_name, context)
+
+
 
 
 class ContactsView(TemplateView):
-    template_name = 'app/contacts.html'
+    template_name = 'app/base.html'
+
+    def get(self, request, *args, **kwargs):
+
+        context = {
+            'path_to_page': 'app/includes/include_contacts.html',
+            'active_page': 'contacts',
+            'items': ''
+        }
+
+        return render(request, self.template_name, context)
 
 
 class ExamplesView(TemplateView):
-    template_name = 'app/examples.html'
+    template_name = 'app/base.html'
 
     def get(self, request, *args, **kwargs):
         items = [{
@@ -32,6 +64,8 @@ class ExamplesView(TemplateView):
             'img': 'imac.jpg'
         }]
         context = {
+            'path_to_page': 'app/includes/include_examples.html',
+            'active_page': 'examples',
             'items': items
         }
         return render(request, self.template_name,
