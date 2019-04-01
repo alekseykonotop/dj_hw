@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 def do_request():
     resp = requests.get('https://reddit.com/r/Python/top.json',
                         headers={'User-Agent': 'Python Netology'})
+    # print(f"resp==> {resp.json()['data']['children']}")
     return resp.json()['data']['children']
 
 
