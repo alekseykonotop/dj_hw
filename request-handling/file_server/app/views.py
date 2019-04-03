@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 
 from django.conf import settings
-# from app.settings import FILES_PATH
 import os
 
 
@@ -43,10 +42,14 @@ class FileList(TemplateView):
 
 
 def file_content(request, name):
-    file_content = open(f'{settings.FILES_PATH}/{name}').read()
+    try:
+        file_content = open(f'{settings.FILES_PATH}/{name}').read()
+    except FileNotFoundError:
+        file_content = f'Файла {name} не существует'
+    
     return render(
         request,
         'file_content.html',
-        context={'file_name': f'{name}', 'file_content': f'{file_content}'}
+        context={'file_name': name, 'file_content': file_content}
     )
 
