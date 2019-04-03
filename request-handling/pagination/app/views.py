@@ -2,7 +2,8 @@ from django.shortcuts import render_to_response, redirect
 from django.urls import reverse
 
 from django.core.paginator import Paginator
-from app.settings import BUS_STATION_CSV
+# from app.settings import BUS_STATION_CSV
+from django.conf import settings
 import urllib.parse
 import csv
 
@@ -11,9 +12,14 @@ def index(request):
     return redirect(reverse(bus_stations))
 
 def bus_stations(request):
-    bus_stations_data = get_bus_data_list(BUS_STATION_CSV)
-    current_page = request.GET.get('page')
-    current_page = int(current_page) if current_page else 1
+    bus_stations_data = []
+    with open(settings.BUS_STATION_CSV, newline='', encoding='cp1251') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            bus_stations_data += [{'Name': row['Name'], 'Street': row['Street'], 'District': row['District']}]
+    
+    current_page = int(request.GET.get('page', 1))
+    # current_page = int(current_page) if current_page else 1
     
     # Class Paginator
     p = Paginator(bus_stations_data, 10)
@@ -34,11 +40,11 @@ def bus_stations(request):
         'next_page_url': f'bus_stations?{next_params}' if next_page else None,
     })
 
-def get_bus_data_list(csv_path):
-    stations_data = []
-    with open(csv_path, newline='', encoding='cp1251') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            stations_data += [{'Name': row['Name'], 'Street': row['Street'], 'District': row['District']}]
+# def get_bus_data_list(csv_path):
+#     stations_data = []
+#     with open(csv_path, newline='', encoding='cp1251') as csvfile:
+#         reader = csv.DictReader(csvfile)
+#         for row in reader:
+#             stations_data += [{'Name': row['Name'], 'Street': row['Street'], 'District': row['District']}]
     
-    return stations_data
+#     return stations_data
