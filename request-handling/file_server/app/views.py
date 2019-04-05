@@ -42,11 +42,17 @@ class FileList(TemplateView):
 
 
 def file_content(request, name):
-    try:
-        file_content = open(f'{settings.FILES_PATH}/{name}').read()
-    except FileNotFoundError:
-        file_content = f'Файла {name} не существует'
+    filepath = f'{settings.FILES_PATH}/{name}'
+
+    if not os.path.isfile(filepath):
+        return render(
+            request,
+            'file_content.html',
+            context={'file_name': name, 'file_content': f'Файла {name} не существует'}
+        )
     
+    file_content = open(filepath).read()
+
     return render(
         request,
         'file_content.html',
