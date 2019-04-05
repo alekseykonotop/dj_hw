@@ -11,17 +11,14 @@ def index(request):
     return redirect(reverse(bus_stations))
 
 def bus_stations(request):
-    bus_stations_data = []
+    current_page = int(request.GET.get('page', 1))
+
     with open(settings.BUS_STATION_CSV, newline='', encoding='cp1251') as csvfile:
         reader = csv.DictReader(csvfile)
-        for row in reader:
-            bus_stations_data += [{'Name': row['Name'], 'Street': row['Street'], 'District': row['District']}]
-    
-    current_page = int(request.GET.get('page', 1))
-    
-    # Class Paginator
-    p = Paginator(bus_stations_data, 10)
-    data_on_page = p.page(current_page).object_list
+        
+        # Class Paginator
+        p = Paginator(list(reader), 10)
+        data_on_page = p.page(current_page).object_list
 
     # next page
     next_page = current_page + 1 if p.page(current_page).has_next() else None
