@@ -9,6 +9,3 @@ class Phone(models.Model):
     release_date = models.DateField(verbose_name='Дата начала продаж')
     lte_exists = models.BooleanField(verbose_name='Наличие')
     slug = models.TextField()
-
-    # def slug(self):
-    #     return slugify(self.name)

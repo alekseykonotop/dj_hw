@@ -34,7 +34,6 @@
         </div>
 
         <div class="content" style="display: inline">
-            {# Здесь должен отображаться каталог с телефонами #}
             {% for phone in phones %}
             <div style="display: inline-block; width: 45%; text-align: justify; margin-top: 20px;">
                 <h3><a href="/catalog/{{ phone.slug }}">{{ phone.name }}</a></h3>

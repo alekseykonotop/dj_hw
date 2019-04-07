@@ -4,18 +4,12 @@ from .management.commands.import_phones import Command
 
 
 def show_catalog(request):
-    # type sort: name, min_prize, max_price
     sort = request.GET.get('sort')
-    print(f'sort ==> {sort}')
-
-    # Run
     record_data_to_db = Command()
     record_data_to_db.handle()
 
-    # Get all instances of phone
     if not sort:
         phones = Phone.objects.all().values()
-        print(f'phones ==> {phones}')
     elif sort == 'name':
         phones = Phone.objects.order_by('name')
     elif sort == 'min_price':
@@ -43,7 +37,6 @@ def show_product(request, slug):
     context = {
         'phone': actual_phone
     }
-
 
     return render(
         request,
