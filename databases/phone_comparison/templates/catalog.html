@@ -3,9 +3,56 @@
 
 {% block title %}Каталог{% endblock %}
 {% block content %}
+    <style>
+    #line_block {
+        width:25%;
+        box-sizing:border-box;
+        float:left;
+        font-size: 14px;
+        line-height: 38px;
+        padding: 10px;
+        }
+
+    li {
+        list-style-type: none;
+        margin-left: 2px;
+        font-size: 14px;
+    }
+
+    .characteristic:first-child {
+        font-weight: bold;
+    }
+
+    </style>
+
     <div class="container">
         <div class="header">
             <h1>Сравнение телефонов</h1>
+            <div class="container table" style="text-align: justify; margin:auto; line-height: 0; font-size: 0px">
+                <div class="titles" id="line_block" style="display: inline">
+                    <ul style="display: inline;">
+                        {% for title in titles %}
+                          <li>{{ title }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                {% if selected_phones %}
+                    {% for phone in selected_phones %}
+                        <div id="line_block">
+                            <ul style="display: inline">
+                                {% for value in phone %}
+                                    {% if not value %}
+                                        <li class="characteristic">{{ Нет }}</li>
+                                    {% else %}
+                                        <li class="characteristic">{{ value }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

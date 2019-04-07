@@ -3,7 +3,8 @@ from .models import Phone, IPhone, Samsung, Xiaomi
 
 
 class PhoneAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('brand', 'model', 'memory', 'display_size')
+    fields = ['brand', 'model', ('memory', 'display_size')]
 
 
 class IPhoneAdmin(admin.ModelAdmin):
