@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load custom_filters %}
 {% load static %}
 
 {% block title %}Телефон{% endblock %}
@@ -6,6 +7,16 @@
     <div class="container">
         <div class="header">
             <h1>Телефон</h1>
+            {% if phone %}
+                <p>Да телефон есть</p>
+                <div style="display: inline-block; width: 45%; text-align: justify; margin-top: 20px;">
+                    <h3><a href="/catalog/{{ phone.slug }}">{{ phone.name }}</a></h3>
+                    <p>Стоимость {{ phone.price }}р.</p>
+                    <img height="300px" src="{{ phone.image }}" alt="{{ phone.name }}">
+                    <p>Дата релиза: {{ phone.release_date|accurate_date }}</p>
+                    <p>В наличии: {{ phone.lte_exists|yes_or_no }}</p>
+                </div>
+            {% endif %}
         </div>
         <div class="content">
 

@@ -1,19 +1,47 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block title %}Каталог{% endblock %}
 {% block content %}
+    <style>
+        .sorting {
+            box-sizing:border-box;
+            float:left;
+            font-size: 14px;
+            line-height: 38px;
+            padding-left: 15px;
+            }
+
+        .sorting:first-child {
+            padding-left: 0px;
+    }
+    </style>
+
     <div class="container">
         <div class="header">
             <h1><a href="/catalog">Каталог</a></h1>
         </div>
 
-        <div class="sort-block">
-            {# Здесь должен быть раздел с сортировкой #}
+        <div class="sort-block" style="display: block; height: 55px; font-size: 0px; font-height: 0px">
+            <div style="display: inline; width: 100%; text-align: left; font-size: 14px;">
+                <p class="sorting">Сортировать по:</p>
+                <p class="sorting"><a href="/catalog?sort=name">названию</a></p>
+                <p class="sorting"><a href="/catalog?sort=min_price">начиная с дешевых</a></p>
+                <p class="sorting"><a href="/catalog?sort=max_price">начиная с дорогих</a></p>
+            </div>
+
         </div>
 
-        <div class="content">
+        <div class="content" style="display: inline">
             {# Здесь должен отображаться каталог с телефонами #}
+            {% for phone in phones %}
+            <div style="display: inline-block; width: 45%; text-align: justify; margin-top: 20px;">
+                <h3><a href="/catalog/{{ phone.slug }}">{{ phone.name }}</a></h3>
+                <p>Стоимость {{ phone.price }}р.</p>
+                <img height="300px" src="{{ phone.image }}" alt="{{ phone.name }}">
+            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
