@@ -1,23 +1,41 @@
 {% extends "base.html" %}
 {% load static %}
+{%  load custom_filters %}
 
 {% block title %}Каталог книг{% endblock %}
 {% block content %}
+    <style>
+        .ref-left, ref-right {
+            width: 150px;
+        }
+    </style>
     <div class="container">
         <div class="header">
             <h1><a href="/books">Каталог</a></h1>
         </div>
+
         <div class="row">
-            <div class="book col-md-4">
-                <h2>Сияние</h2>
-                <p>Автор: Стивен Кинг</p>
-                <p>Дата публикации: 2018-09-10</p>
-            </div>
-            <div class="book col-md-4">
-                <h2>1984</h2>
-                <p>Автор: Джордж Оруэл</p>
-                <p>Дата публикации: 2015-03-11</p>
-            </div>
+            {% for book in object_list %}
+                <div class="book col-md-4">
+                    <h2><a href="/books/{{ book.pub_date|create_slug }}">{{ book.name }}</a></h2>
+                    <p>Автор: {{ book.author }}</p>
+                    <p>Дата публикации: {{ book.pub_date|human_date }}</p>
+                </div>
+            {% endfor %}
         </div>
+        {% if paginator %}
+            <div class="row">
+                <div class="ref-left">
+                    {% if prev_date %}
+                        <p><a href="/books/{{ prev_date.pub_date|create_slug }}">< {{ prev_date.pub_date|human_date }}</a></p>
+                    {% endif %}
+                </div>
+                <div class="ref-right">
+                    {% if next_date %}
+                        <p><a href="/books/{{ next_date.pub_date|create_slug }}">{{ next_date.pub_date|human_date }} ></a></p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

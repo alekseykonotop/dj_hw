@@ -8,5 +8,10 @@ class Book(models.Model):
     author = models.CharField(u'Автор', max_length=64)
     pub_date = models.DateField(u'Дата публикации')
 
+    # Metadata
+    class Meta:
+        ordering = ["-pub_date"]
+
     def __str__(self):
-        return self.name + " " + self.author
+        # return self.name + " " + self.author
+        return f'{self.name} {self.author}'
