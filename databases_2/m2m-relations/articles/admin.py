@@ -7,30 +7,31 @@ from .models import Article, Category, Compilation
 
 class CompilationInlineFormset(BaseInlineFormSet):
     def clean(self):
-        counter = 0
+        count_main = 0
 
         for form in self.forms:
             if form.cleaned_data:
                 if form.cleaned_data['is_main']:
-                    counter += 1
-        if counter == 0:
+                    count_main += 1
+        if count_main == 0:
             raise ValidationError('Укажите основной раздел')
-        if counter > 1:
+        if count_main > 1:
             raise ValidationError('Основным может быть только один раздел')
         return super().clean()
 
 
 class CompilationInline(admin.TabularInline):
-    model = Category.articles.through
+    model = Compilation
     extra = 1
     formset = CompilationInlineFormset
 
 
+
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    inlines = (CompilationInline)
+    inlines = [CompilationInline]
 
 
 @admin.register(Category)
-class ArticleAdmin(admin.ModelAdmin):
-    pass
+class CategoryAdmin(admin.ModelAdmin):
+    inlines = [CompilationInline]

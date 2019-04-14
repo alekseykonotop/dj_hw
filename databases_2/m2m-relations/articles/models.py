@@ -14,26 +14,39 @@ class Article(models.Model):
 
 
     class Meta:
-        ordering = ['-title']
+        ordering = ['-published_at', '-title']
 
     def __str__(self):
-        return {self.title}
+        return self.title
 
 
 # My code
 class Category(models.Model):
     name = models.CharField(max_length=65, verbose_name='Категория')
-    is_main = models.BooleanField(null=True, verbose_name='Основная категория')
-    articles = models.ManyToManyField(Article, related_name='categories')
+    articles = models.ManyToManyField(Article, through='Compilation')
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
-        return {self.name}
+        return self.name
 
 
 class Compilation(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    is_main = models.BooleanField(default=False, verbose_name='Основной')
+
+    class Meta:
+        verbose_name = 'Связь'
+        verbose_name_plural = 'Связи'
+        ordering = ['-is_main', 'category']
 
     def __str__(self):
-        return f'{self.article} {self.category}'
+        return f'{self.category}'
+
 
