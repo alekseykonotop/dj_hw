@@ -8,6 +8,10 @@ class StudentListView(ListView):
     model = Student
     ordering = 'group'
 
-    def get_queryset(self):
-        qs = super().get_queryset()
-        return qs
+    def get_context_data(self):
+        students = Student.objects.all().prefetch_related('teachers')
+        context = {
+            'students': students,
+        }
+
+        return context

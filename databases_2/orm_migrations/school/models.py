@@ -22,6 +22,7 @@ class Student(models.Model):
     class Meta:
         verbose_name = 'Ученик'
         verbose_name_plural = 'Ученики'
+        ordering = ['name']
 
     def __str__(self):
         return self.name
