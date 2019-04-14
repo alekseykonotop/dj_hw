@@ -9,7 +9,7 @@ class BookListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(f'context in BookListView==> {context}')
+        # print(f'context in BookListView==> {context}')
         context['paginator'] = False
         return context
 
@@ -31,7 +31,7 @@ class BookListDateView(generic.ListView):
         date = datetime.date(year, month, day)
 
         context = super().get_context_data(**kwargs)
-        print(f'context in DateView==> {context}')
+        # print(f'context in DateView==> {context}')
 
         # prev_date
         prev_date_set = Book.objects.filter(pub_date__lt=date).order_by('pub_date')
