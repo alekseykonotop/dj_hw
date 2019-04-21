@@ -12,4 +12,50 @@ class ProductsList(ListView):
 
 
 class ProductView(DetailView):
-    pass
+    template_name = 'app/product_detail.html'
+    model = Product
+
+    def post(self, request, *args, **kwargs):
+        print(f'START post')
+
+        if request.method == 'POST':
+            form = ReviewForm(request.POST or None)
+            if form.is_valid():
+                text = form.cleaned_data.get('text')
+                pk = kwargs['pk']
+                print(f'pk in post method ==> {pk}')
+
+                product = Product.objects.get(id=pk)
+                review = Review.objects.create(text=text, product=product)
+                print(f'Создаем новую запись в модели Review')
+                review.save()
+                print(f'Сохранили запись в БД')
+
+                return redirect(reverse('product_detail', kwargs={'pk': kwargs['pk']}))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = ReviewForm()
+        context['form'] = form
+        product = Product.objects.get(id=self.kwargs['pk'])
+        context['object'] = product
+        reviews = Review.objects.filter(product=product)
+        context['reviews'] = reviews
+
+        if not self.request.session.get('reviewed_products', False):
+            self.request.session["reviewed_products"] = [True]
+            context['is_review_exist'] = False
+
+            return context
+
+        if self.kwargs['pk'] in self.request.session["reviewed_products"]:
+            context['is_review_exist'] = True
+        else:
+            self.request.session["reviewed_products"] += [self.kwargs['pk']]
+            context['is_review_exist'] = False
+
+        return context
+
+
+
+
