@@ -16,20 +16,15 @@ class ProductView(DetailView):
     model = Product
 
     def post(self, request, *args, **kwargs):
-        print(f'START post')
-
         if request.method == 'POST':
             form = ReviewForm(request.POST or None)
             if form.is_valid():
                 text = form.cleaned_data.get('text')
                 pk = kwargs['pk']
-                print(f'pk in post method ==> {pk}')
 
                 product = Product.objects.get(id=pk)
                 review = Review.objects.create(text=text, product=product)
-                print(f'Создаем новую запись в модели Review')
                 review.save()
-                print(f'Сохранили запись в БД')
 
                 return redirect(reverse('product_detail', kwargs={'pk': kwargs['pk']}))
 
