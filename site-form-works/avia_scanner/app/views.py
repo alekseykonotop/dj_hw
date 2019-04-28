@@ -21,7 +21,7 @@ def cities_lookup(request):
 
     if not cache.has_key('cities'):
         cache.set('cities', City.objects.order_by('name'))
-        
+
     results = [city.name for city in cache.get('cities') if user_input in city.name]
 
     return JsonResponse(results, safe=False)
