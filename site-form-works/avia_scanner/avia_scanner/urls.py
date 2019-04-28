@@ -21,6 +21,6 @@ from app.views import TicketPageView, cities_lookup
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/city_ajax', cities_lookup),
+    path('api/city_ajax', cities_lookup, name='cities_lookup'),
     path('', TicketPageView.as_view(), name='TicketPageView'),
 ]
