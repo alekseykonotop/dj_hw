@@ -13,6 +13,8 @@ class Car(models.Model):
     def review_count(self):
         return Review.objects.filter(car=self).count()
 
+    review_count.short_description = 'Количество статей'
+
 
     class Meta:
         verbose_name = 'Машина'

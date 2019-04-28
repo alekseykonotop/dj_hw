@@ -1,6 +1,5 @@
 from django import forms
 from .models import Review
-
 from ckeditor.widgets import CKEditorWidget
 
 
