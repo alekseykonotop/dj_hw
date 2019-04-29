@@ -1,11 +1,13 @@
+from django.views.generic import TemplateView
+from django.http import HttpResponseNotFound
+from django.shortcuts import render
+from django.conf import settings
+
 import datetime
 import time
-
-from django.shortcuts import render
-from django.views.generic import TemplateView
-
-from django.conf import settings
 import os
+
+
 
 
 class FileList(TemplateView):
@@ -21,8 +23,8 @@ class FileList(TemplateView):
             infostat = os.stat(f'{settings.FILES_PATH}/{f}')
             f_data = {
                 'name': f,
-                'ctime': datetime.datetime.utcfromtimestamp(infostat[-1]),
-                'mtime': datetime.datetime.utcfromtimestamp(infostat[-2])
+                'ctime': datetime.datetime.utcfromtimestamp(infostat.st_ctime),
+                'mtime': datetime.datetime.utcfromtimestamp(infostat.st_mtime),
             }
 
             if not date:
@@ -45,11 +47,7 @@ def file_content(request, name):
     filepath = f'{settings.FILES_PATH}/{name}'
 
     if not os.path.isfile(filepath):
-        return render(
-            request,
-            'file_content.html',
-            context={'file_name': name, 'file_content': f'Файла {name} не существует'}
-        )
+        return HttpResponseNotFound(f'Файл {name} не найден')
     
     file_content = open(filepath).read()
 
