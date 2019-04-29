@@ -15,9 +15,8 @@ def format_date(value):
     elif (delta // 3600) < 24:
         return f'{int(delta // 3600)} часов назад'
 
-    elif (delta // 3600) >= 24:
-        post_date = time.localtime(value)
-        return time.strftime('%Y-%m-%d', post_date)
+    post_date = time.localtime(value)
+    return time.strftime('%Y-%m-%d', post_date)
 
 
 
@@ -46,7 +45,7 @@ def format_selftext(value, count):
     if not value:
         return value
     all_words = value.split(' ')
-    new_str = ' '.join(all_words[: count]) + ' ... ' + ' '.join(all_words[-count:])
+    new_str = f"{' '.join(all_words[: count])}...{' '.join(all_words[-count:])}"
     return new_str
 
 
