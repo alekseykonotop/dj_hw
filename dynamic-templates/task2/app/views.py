@@ -3,13 +3,12 @@ from django.views.generic import TemplateView
 
 
 class HomeView(TemplateView):
-    template_name = 'app/base.html'
+    template_name = 'app/includes/include_home.html'
 
     def get(self, request, *args, **kwargs):
 
         context = {
             'path_to_page': 'app/includes/include_home.html',
-            'active_page': 'home',
             'items': ''
         }
 
@@ -17,13 +16,12 @@ class HomeView(TemplateView):
 
 
 class AboutView(TemplateView):
-    template_name = 'app/base.html'
+    template_name = 'app/includes/include_about.html'
 
     def get(self, request, *args, **kwargs):
 
         context = {
             'path_to_page': 'app/includes/include_about.html',
-            'active_page': 'about',
             'items': ''
         }
 
@@ -33,13 +31,12 @@ class AboutView(TemplateView):
 
 
 class ContactsView(TemplateView):
-    template_name = 'app/base.html'
+    template_name = 'app/includes/include_contacts.html'
 
     def get(self, request, *args, **kwargs):
 
         context = {
             'path_to_page': 'app/includes/include_contacts.html',
-            'active_page': 'contacts',
             'items': ''
         }
 
@@ -47,7 +44,7 @@ class ContactsView(TemplateView):
 
 
 class ExamplesView(TemplateView):
-    template_name = 'app/base.html'
+    template_name = 'app/includes/include_examples.html'
 
     def get(self, request, *args, **kwargs):
         items = [{
@@ -65,7 +62,6 @@ class ExamplesView(TemplateView):
         }]
         context = {
             'path_to_page': 'app/includes/include_examples.html',
-            'active_page': 'examples',
             'items': items
         }
         return render(request, self.template_name,

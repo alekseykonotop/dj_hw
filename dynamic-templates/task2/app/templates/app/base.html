@@ -19,29 +19,30 @@
         <a href="{% url 'home' %}" class="brand-logo">
         Компьютеры</a>
         <ul class="right hide-on-med-and-down">
+            {% with active_page=request.resolver_match.url_name%}
+                {% if active_page == 'examples' %}
+                  <li class="active"><a href="{% url 'examples' %}">Примеры</a></li>
+                {% else %}
+                  <li><a href="{% url 'examples' %}">Примеры</a></li>
+                {% endif%}
 
-            {% if active_page == 'examples' %}
-              <li class="active"><a href="{% url 'examples' %}">Примеры</a></li>
-            {% else %}
-              <li><a href="{% url 'examples' %}">Примеры</a></li>
-            {% endif%}
+                {% if active_page == 'contacts' %}
+                  <li class="active"><a href="{% url 'contacts' %}">Контакты</a></li>
+                {% else %}
+                  <li><a href="{% url 'contacts' %}">Контакты</a></li>
+                {% endif%}
 
-            {% if active_page == 'contacts' %}
-              <li class="active"><a href="{% url 'contacts' %}">Контакты</a></li>
-            {% else %}
-              <li><a href="{% url 'contacts' %}">Контакты</a></li>
-            {% endif%}
-
-            {% if active_page == 'about' %}
-              <li class="active"><a href="{% url 'about' %}">О проекте</a></li>
-            {% else %}
-              <li><a href="{% url 'about' %}">О проекте</a></li>
-            {% endif%}
+                {% if active_page == 'about' %}
+                  <li class="active"><a href="{% url 'about' %}">О проекте</a></li>
+                {% else %}
+                  <li><a href="{% url 'about' %}">О проекте</a></li>
+                {% endif%}
+            {% endwith %}
 
         </ul>
       </div>
     </nav>
 
-    {% include path_to_page %}
+    {% block content %}{% endblock %}
   </body>
 </html>
