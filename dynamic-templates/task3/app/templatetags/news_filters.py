@@ -12,7 +12,7 @@ def format_date(value):
     if delta // 60 < 10:
         return 'только что'
 
-    elif (delta // 3600) < 24:
+    elif delta // 3600 < 24:
         return f'{int(delta // 3600)} часов назад'
 
     post_date = time.localtime(value)
