@@ -18,8 +18,6 @@ class AboutView(TemplateView):
         return render(request, self.template_name)
 
 
-
-
 class ContactsView(TemplateView):
     template_name = 'app/contacts.html'
 
