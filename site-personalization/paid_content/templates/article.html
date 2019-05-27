@@ -6,7 +6,13 @@
 {% block content %}
     <div class="container">
         <div class="header">
-            <h3>Заголовок статьи</h3>
+            <h3>{{ article.title }}</h3>
+            {% if message %}
+                <p>{{ message }}</p>
+            {% else %}
+                <img src="{{ MEDIA_URL }}{{ article.image.url }}/" alt="Картинка статьи {{ article.title }}"/>
+                <p>{{ article.description }}</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

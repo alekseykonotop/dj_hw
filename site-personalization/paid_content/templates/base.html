@@ -1,8 +1,9 @@
-<!DOCTYPE html>{% load static %}
+{% load static %}
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Главная{% endblock %}</title>
       <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{% static "css/bootstrap.css" %}"  media="screen,projection"/>
@@ -13,6 +14,16 @@
   </head>
 
   <body>
+    <nav>
+        <a href="{% url 'index' %}">Главная</a>
+        <a href="{% url 'show_articles' %}">Статьи</a>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'buy' %}">Оформить подписку</a>
+            <a href="{% url 'logout' %}">Выйти</a>
+        {% else %}
+            <a href="{% url 'login' %}">Авторизоваться</a>
+        {% endif %}
+    </nav>
     {% block content %}{% endblock %}
 
     <!--JavaScript at end of body for optimized loading-->

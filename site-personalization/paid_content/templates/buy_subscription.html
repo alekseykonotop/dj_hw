@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Подписка{% endblock %}
+
+{% block content %}
+    {% if message %}
+        <p>{{ message }}</p>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" name="newsletter_sub" value="Subscribe" />
+        </form>
+        <p>*Нажимая на кнопку "Подписаться" Вы принимаете условия оферты.</p>
+    {% endif %}
+{% endblock %}
