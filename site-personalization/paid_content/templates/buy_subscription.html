@@ -10,8 +10,8 @@
     {% else %}
         <form method="post">
             {% csrf_token %}
-            <input type="submit" name="newsletter_sub" value="Subscribe" />
+            <input type="submit" name="newsletter_sub" value="Подписаться" />
         </form>
-        <p>*Нажимая на кнопку "Подписаться" Вы принимаете условия оферты.</p>
+        <p>*Нажимая на кнопку <strong>"Подписаться"</strong> Вы принимаете условия оферты.</p>
     {% endif %}
 {% endblock %}
