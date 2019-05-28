@@ -1,19 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import ListView
-from django.views.generic import TemplateView
 from .models import Profile
 
 from .models import Article
 
 
-# def show_articles(request):
-#
-#     return render(
-#         request,
-#         'articles.html'
-#     )
-#
-#
 def show_article(request, id):
     article = Article.objects.get(pk=id)
     is_article_paid = article.is_paid_content
@@ -49,7 +40,7 @@ class ShowArticlesView(ListView):
 
 def buy_subscription(request):
     context = {}
-    request.session.set_expiry(30)
+    request.session.set_expiry(360)
     if 'is_subscribed' in request.session:
         if request.session['is_subscribed']:
             context['message'] = 'Вы уже оформили подписку. Приятного чтения!'
