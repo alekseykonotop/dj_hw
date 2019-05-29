@@ -8,7 +8,7 @@ class SearchTicket(forms.Form):
     departure_city = forms.CharField(widget=AjaxInputWidget(url=reverse_lazy('cities_lookup'),
                                      attrs={'class': 'inline right-margin'}),
                                      label='Город отбытия')
-    arrival_city = forms.ModelChoiceField(queryset=City.objects.all(), empty_label='--------------',
+    arrival_city = forms.ModelChoiceField(queryset=City.objects.all(), empty_label='---------',
                                           label='Город прибытия')
     fly_date = forms.DateField(widget=forms.SelectDateWidget, label='Дата вылета')
 
