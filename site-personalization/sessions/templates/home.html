@@ -7,6 +7,18 @@
     <div class="container">
         <div class="header">
             <h1>Игра "Угадай число"</h1>
+            <h4>{{ message }}</h4>
+            {% if descriptor %}
+                <p>{{ descriptor }}</p>
+            {% else %}
+                <form action="" method="post">
+                    {% csrf_token %}
+    <!--                <label for="input_number">Your name: </label>-->
+    <!--                <input id="input_number" type="text" name="введите число" value="{{ guess_number }}">-->
+                    {{ form.as_p }}
+                    <input type="submit" value="Загадать" />
+                </form>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
