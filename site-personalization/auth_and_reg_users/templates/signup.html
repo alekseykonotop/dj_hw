@@ -8,4 +8,9 @@
         <div class="header"></div>
         <h2>Регистрация</h2>
     </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Зарегистрироваться</button>
+    </form>
 {% endblock %}

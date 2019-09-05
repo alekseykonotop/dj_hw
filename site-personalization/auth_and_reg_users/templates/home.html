@@ -6,7 +6,14 @@
 {% block content %}
     <div class="container">
         <div class="header"></div>
+        {% if user.is_anonymous %}
             Привет, <b>гость</b>.<br>
-            Пожалуйста, <a href="/signup">зарегистрируйся</a> или <a href="/login">авторизуйся</a>!
+            Пожалуйста, <a href="{% url 'signup' %}">зарегистрируйся</a> или <a href="{% url 'login' %}">авторизуйся</a>!
+        {% else %}
+            Привет, {{ user.username }}!<br>
+            <a href="{% url 'signup' %}"> Зарегистрировать нового пользователя</a><br>
+            <a href="{% url 'login' %}">Авторизоваться под другим логином</a><br>
+            <a href="{% url 'logout' %}">Выйти</a><br>
+        {% endif %}
     </div>
 {% endblock %}
