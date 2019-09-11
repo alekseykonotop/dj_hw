@@ -8,3 +8,9 @@ paid_content/articles/__pycache__/views.cpython-37.pyc
 paid_content/articles/migrations/__pycache__/
 paid_content/main/__pycache__/wsgi.cpython-37.pyc
 paid_content/articles/__pycache__/
+paid_content/db.sqlite3
+auth_and_reg_users/.gitignore
+auth_and_reg_users/db.sqlite3
+sessions/.gitignore
+sessions/db.sqlite3
+paid_content/db.sqlite3
