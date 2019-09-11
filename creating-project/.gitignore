@@ -1,0 +1,4 @@
+.idea/
+application/app/__pycache__/
+application/app/templatetags/__pycache__/
+application/db.sqlite3
