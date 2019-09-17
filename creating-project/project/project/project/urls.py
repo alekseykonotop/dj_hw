@@ -20,6 +20,6 @@ import stations.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('stations/', stations.views.station, name='station'),
-    path('', stations.views.station, name='station'),
+    path('stations', stations.views.stations, name='stations'),
+    path('', stations.views.stations, name='stations'),
 ]
