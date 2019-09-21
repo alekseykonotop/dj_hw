@@ -6,7 +6,6 @@ from django.db import models
 class Route(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название маршрута')
 
-
     class Meta:
         verbose_name = 'Маршрут'
         verbose_name_plural = 'Маршруты'

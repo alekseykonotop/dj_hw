@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Station, Route
+from .models import Route
 from django.db.models import Min, Max
 
 # Create your views here.
