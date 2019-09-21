@@ -27,7 +27,6 @@ class FilePath(models.Model):
 
     def get_path(self):
         """Получаем полный путь до файла
-        Для кого? Для шаблона или URL-ла?
         """
         return f'{self.folder_name}/{self.file_name}'
 

@@ -13,7 +13,7 @@ class TableView(View):
         current_file = FilePath.objects.last()
         if current_file:
             required_cells = Table.objects.all()
-            with open(current_file.get_path(), 'rt') as csv_file:
+            with open(current_file.get_path()) as csv_file:
                 headers = [cell.name for cell in required_cells]
                 table = []
                 table_reader = csv.DictReader(csv_file, delimiter=';')
